@@ -95,77 +95,45 @@ def checkAnyT(player_number):
     for r in range(0, height):
         for c in range(0, width):
             if (board[r][c] == player_number):
-                if (checkWinBelow(r, c, player_number)
-                    or checkWinAbove(r, c, player_number)
-                    or checkLeft(r, c, player_number)
-                    or checkRight(r, c, player_number)
-                    or checkWinBottomRight(r, c, player_number)
-                    or checkWinBottomLeft(r, c, player_number)
-                    or checkWinTopLeft(r, c, player_number)
-                    or checkWinTopRight(r, c, player_number)):
+                if (checkHorizontal(r, c, player_number)
+                    or checkVertical(r, c, player_number)
+                    or checkDiagonalLeft(r, c, player_number)
+                    or checkDiagonalRight(r, c, player_number):
                     return True
     return False
 
 
-def checkWinBelow(row, col, player_number):
+
+def checkHorizontal(row, col, player_number):
     global board, width, height
-    if (col + 1 == width or row == 0 or row + 1 == width): return False
-    if (board[row - 1][col + 1] == player_number and board[row][col + 1] == player_number and board[row + 1][
-            col + 1] == player_number): return True
+    if (col + 3 >= width): return False
+    if (board[row][col + 1] == player_number and board[row][col + 2] == player_number and
+            board[row][col + 3] == player_number): return True
     return False
 
-
-def checkWinAbove(row, col, player_number):
+def checkVertical(row, col, player_number):
     global board, width, height
-    if (col == 0 or row == 0 or row + 1 == height): return False
-    if (board[row - 1][col - 1] == player_number and board[row][col - 1] == player_number and board[row + 1][
-            col - 1] == player_number): return True
+    if (row + 3 >= height): return False
+    if (board[row + 1][col] == player_number and board[row + 2][col] == player_number and
+            board[row + 3][col] == player_number): return True
     return False
 
-
-def checkLeft(row, col, player_number):
+    .
+  .
+ .
+.
+def checkDiagonalLeft(row, col, player_number):
     global board, width, height
-    if (row + 1 >= height or col + 1 >= width or col - 1 < 0): return False
-    if (board[row + 1][col - 1] == board[row + 1][col] == board[row + 1][col + 1] == player_number): return True
+    if (col + 3 >= width or row + 3 >= height): return False
+    if (board[row + 1][col + 1] == player_number and board[row + 2][col + 2] == player_number and
+            board[row + 3][col + 3] == player_number): return True
     return False
 
-
-def checkRight(row, col, player_number):
+def checkDiagonalRight(row, col, player_number):
     global board, width, height
-    if (row - 1 < 0 or col + 1 >= width or col - 1 < 0): return False
-    if (board[row - 1][col - 1] == board[row - 1][col] == board[row - 1][col + 1] == player_number): return True
-    return False
-
-
-def checkWinBottomRight(row, col, player_number):
-    global board, width, height
-    if (row - 2 < 0 or col + 2 >= width): return False
-    if (board[row - 2][col] == player_number and board[row - 1][col + 1] == player_number and board[row][
-            col + 2] == player_number): return True
-    return False
-
-
-def checkWinBottomLeft(row, col, player_number):
-    global board, width, height
-    if (row + 2 >= height or col - 2 < 0): return False
-    if (board[row + 2][col] == player_number and board[row + 1][col - 1] == player_number and board[row][
-            col - 2] == player_number): return True
-    return False
-
-
-def checkWinTopLeft(row, col, player_number):
-    global board, width, height
-    if (row + 2 >= height or col - 2 < 0): return False
-    if (board[row + 2][col] == player_number and board[row + 1][col - 1] == player_number and board[row][
-            col - 2] == player_number): return True
-    return False
-
-
-def checkWinTopRight(row, col, player_number):
-    global board, width, height
-    if (row - 2 < 0 or col - 2 < 0): return False
-    if (board[row - 2][col] == player_number and board[row - 1][col - 1] == player_number and board[row][
-            col - 2] == player_number): return True
+    if (col + 3 >= height or row - 3 < 0): return False
+    if (board[row - 1][col + 1] == player_number and board[row - 2][col + 2] == player_number and
+            board[row - 3][col + 3] == player_number): return True
     return False
 
 
